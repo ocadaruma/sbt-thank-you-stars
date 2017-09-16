@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>jp.ne.opt</groupId>
+    <artifactId>chronoscala_2.12</artifactId>
+    <packaging>jar</packaging>
+    <description>chronoscala</description>
+    <version>0.1.4</version>
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://raw.githubusercontent.com/opt-tech/chronoscala/master/LICENSE</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <name>chronoscala</name>
+    <organization>
+        <name>jp.ne.opt</name>
+    </organization>
+    <url>https://github.com/opt-tech/chronoscala</url>
+    <scm>
+        <connection>&quot;scm:git:git@github.com:opt-tech/chronoscala.git&quot;</connection>
+        <url>git@github.com:opt-tech/chronoscala.git</url>
+    </scm>
+    <developers>
+        <developer>
+            <id>ocadaruma</id>
+            <name>Haruki Okada</name>
+        </developer>
+    </developers>
+    <dependencies>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>2.12.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scalacheck</groupId>
+            <artifactId>scalacheck_2.12</artifactId>
+            <version>1.13.5</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
