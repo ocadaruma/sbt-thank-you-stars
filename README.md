@@ -46,6 +46,5 @@ $ cd /path/to/your-sbt-project
 $ sbt thankYouStars
 [info] Starred! https://github.com/kamon-io/Kamon
 [info] ---- Skipped. No GitHub repo found for org.aspectj:aspectjrt:1.8.7
-[info] Starred! https://github.com/scala/scala
 [info] Starred! https://github.com/spray/spray
 ```
