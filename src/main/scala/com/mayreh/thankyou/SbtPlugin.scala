@@ -25,6 +25,14 @@ object SbtPlugin extends AutoPlugin {
         val normalizedArtifact = m.name.trimSuffix(scalaSuffix)
         (m.organization, normalizedArtifact, m.revision)
       }
+      def rejectScalaLibs = (m: ModuleReport) => {
+        m.module.name match {
+          case "scala-library" => false
+          case "scala-compiler" => false
+          case _ => true
+        }
+      }
+
       val thisModule = moduleKey(organization.value %% name.value % version.value)
       val logger = sLog.value
 
@@ -32,9 +40,10 @@ object SbtPlugin extends AutoPlugin {
 
       val modules = updateReport.configurations.flatMap { config =>
         config.modules.collect {
-          case m if m.callers.exists(c => moduleKey(c.caller) == thisModule) => m
+          // reject scala-libs and filter only directly dependent modules
+          case m if m.callers.exists(c => moduleKey(c.caller) == thisModule) && rejectScalaLibs(m) => m
         }
-      }.distinctBy(m => moduleKey(m.module))
+      }.distinctBy(m => moduleKey(m.module)) // deduplicate
 
       @tailrec
       def iterateUntilGitHubRepoFound(jars: Seq[File]): Option[GitHubRepo] = jars match {
