@@ -2,7 +2,7 @@ organization := "com.mayreh"
 
 name := "sbt-thank-you-stars"
 
-version := "0.1-SNAPSHOT"
+version := "0.1-M1"
 
 sbtPlugin := true
 
@@ -13,6 +13,8 @@ crossSbtVersions := Seq("0.13.16", "1.0.2")
 licenses += (("Apache2.0", url("https://raw.githubusercontent.com/ocadaruma/sbt-thank-you-stars/master/LICENSE")))
 
 startYear := Some(2017)
+
+publishMavenStyle := true
 
 pomExtra in Global := {
   <url>https://github.com/ocadaruma/sbt-thank-you-stars</url>
