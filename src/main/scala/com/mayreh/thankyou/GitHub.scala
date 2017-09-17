@@ -69,7 +69,7 @@ object GitHubClient {
 
     specifiedToken.map(new GitHubClient(_))
       .orElse(jsonFile.flatMap { file =>
-        JSON.parseFull(io.Source.fromFile(file).mkString).map { m =>
+        JSON.parseFull(IO.read(file)).map { m =>
           val token = m.asInstanceOf[Map[String, String]]("token")
           new GitHubClient(token)
         }
