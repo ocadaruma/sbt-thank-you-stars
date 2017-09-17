@@ -10,7 +10,7 @@ import scala.util.Try
 object SbtPlugin extends AutoPlugin {
 
   object autoImport {
-    val thankYouStars: TaskKey[Unit] = taskKey[Unit]("")
+    val thankYouStars: TaskKey[Unit] = taskKey[Unit]("Give your dependencies stars on GitHub!")
   }
 
   import autoImport._
@@ -52,15 +52,19 @@ object SbtPlugin extends AutoPlugin {
         Try {
           module.homepage.flatMap(GitHubRepo.fromUrl)
             .orElse(iterateUntilGitHubRepoFound(module.artifacts.map { case (_, file) => file }))
-            .foreach { repo =>
+            .fold {
+              logger.info(s"---- Skipped. No GitHub repo found for ${module.module}")
+            } { repo =>
               if (!cache(repo)) {
                 cache += repo
-//                client.star(repo)
+                client.star(repo)
                 logger.info(s"Starred! https://github.com/${repo.owner}/${repo.repo}")
               }
             }
         }.recover {
-          case e => logger.trace(e)
+          case e =>
+            logger.warn(s"An error occurred while starring ${module.module}")
+            logger.trace(e)
         }
       }
     }
