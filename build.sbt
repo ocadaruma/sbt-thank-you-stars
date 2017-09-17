@@ -2,7 +2,7 @@ organization := "com.mayreh"
 
 name := "sbt-thank-you-stars"
 
-version := "0.1-M1"
+version := "0.1"
 
 sbtPlugin := true
 
