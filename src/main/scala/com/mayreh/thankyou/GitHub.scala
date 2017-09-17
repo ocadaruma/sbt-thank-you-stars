@@ -69,10 +69,9 @@ object GitHubClient {
 
     specifiedToken.map(new GitHubClient(_))
       .orElse(jsonFile.flatMap { file =>
-        JSON.parseFull(io.Source.fromFile(file).mkString).collect {
-          case Some(m) =>
-            val token = m.asInstanceOf[Map[String, String]]("token")
-            new GitHubClient(token)
+        JSON.parseFull(io.Source.fromFile(file).mkString).map { m =>
+          val token = m.asInstanceOf[Map[String, String]]("token")
+          new GitHubClient(token)
         }
       })
       .getOrElse(throw ConfigurationException(

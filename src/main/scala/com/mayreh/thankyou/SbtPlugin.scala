@@ -4,6 +4,8 @@ import sbt._
 import Keys._
 
 import scala.annotation.tailrec
+import scala.collection.mutable
+import scala.util.Try
 
 object SbtPlugin extends AutoPlugin {
 
@@ -39,19 +41,27 @@ object SbtPlugin extends AutoPlugin {
         case Nil =>
           None
         case head +: tail =>
-          IvyUtil.scmUrlFromJarPath(head).flatMap(u => GitHubRepo.fromUrl(u.url)) match {
-            case result @ Some(_) => result
+          IvyUtil.scmUrlFromJarPath(head).candidates.flatMap(GitHubRepo.fromUrl) match {
+            case repo +: _ => Some(repo)
             case _ => iterateUntilGitHubRepoFound(tail)
           }
       }
 
+      val cache = mutable.Set.empty[GitHubRepo]
       modules.foreach { module =>
-        module.homepage.flatMap(GitHubRepo.fromUrl)
-          .orElse(iterateUntilGitHubRepoFound(module.artifacts.map { case (_, file) => file }))
-          .foreach { repo =>
-//            client.star(repo)
-            logger.info(s"Starred! https://github.com/${repo.owner}/${repo.repo}")
-          }
+        Try {
+          module.homepage.flatMap(GitHubRepo.fromUrl)
+            .orElse(iterateUntilGitHubRepoFound(module.artifacts.map { case (_, file) => file }))
+            .foreach { repo =>
+              if (!cache(repo)) {
+                cache += repo
+//                client.star(repo)
+                logger.info(s"Starred! https://github.com/${repo.owner}/${repo.repo}")
+              }
+            }
+        }.recover {
+          case e => logger.trace(e)
+        }
       }
     }
   )
