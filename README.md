@@ -13,7 +13,7 @@ This is a sbt-ported version of [thank-you-stars.](https://github.com/teppeis/th
 Add following line to `project/plugins.sbt` or `$HOME/.sbt/0.13/plugins/plugins.sbt`:
 
 ```scala
-addSbtPlugin("com.mayreh" % "sbt-thank-you-stars" % "0.1")
+addSbtPlugin("com.mayreh" % "sbt-thank-you-stars" % "0.1-M1")
 ```
 
 ### Prepare personal access token
