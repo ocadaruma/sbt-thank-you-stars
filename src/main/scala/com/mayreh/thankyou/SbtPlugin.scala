@@ -19,7 +19,7 @@ object SbtPlugin extends AutoPlugin {
 
   override def projectSettings: Seq[Setting[_]] = Seq(
     thankYouStars := {
-      val updateReport = update.value
+      val updateReport = updateFull.value
       def moduleKey = (m: ModuleID) => {
         val scalaSuffix = s"_${scalaBinaryVersion.value}"
         val normalizedArtifact = m.name.trimSuffix(scalaSuffix)

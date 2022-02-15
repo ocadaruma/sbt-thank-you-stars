@@ -6,9 +6,9 @@ Give your dependencies stars on GitHub!
 
 This is a sbt-ported version of [thank-you-stars.](https://github.com/teppeis/thank-you-stars)
 
-## Requirement
+## Requirements
 
-sbt 0.13.x / 1.0.x
+sbt 1.4.x or higher (tested only on 1.6.2)
 
 ## Setup
 
