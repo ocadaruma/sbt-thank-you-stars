@@ -17,7 +17,7 @@ sbt 1.4.x or higher (tested only on 1.6.2)
 Add following line to `project/plugins.sbt` or `$HOME/.sbt/0.13/plugins/plugins.sbt`:
 
 ```scala
-addSbtPlugin("com.mayreh" % "sbt-thank-you-stars" % "0.1")
+addSbtPlugin("com.mayreh" % "sbt-thank-you-stars" % "0.2")
 ```
 
 ### Prepare personal access token
