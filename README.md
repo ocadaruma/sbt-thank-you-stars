@@ -14,7 +14,7 @@ sbt 1.4.x or higher (tested only on 1.6.2)
 
 ### Install sbt plugin
 
-Add following line to `project/plugins.sbt` or `$HOME/.sbt/0.13/plugins/plugins.sbt`:
+Add following line to `project/plugins.sbt` or `$HOME/.sbt/1.0/plugins/plugins.sbt`:
 
 ```scala
 addSbtPlugin("com.mayreh" % "sbt-thank-you-stars" % "0.2")
