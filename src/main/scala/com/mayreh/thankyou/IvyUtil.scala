@@ -14,19 +14,27 @@ object IvyUtil {
    *   3. project \ licenses \ license \ url
    */
   def scmUrlFromJarPath(jarPath: File): ScmUrl = {
-    val moduleRoot = jarPath.getParentFile.getParentFile
-
     // find ivy-*.xml.original of latest version
-    val ivyXmlFile = moduleRoot.listFiles(FileFilter.globFilter("ivy-*.xml.original")).last
-    val ivyXml = scala.xml.XML.loadFile(ivyXmlFile)
+    val ivyXmlFile =
+      jarPath.getParentFile.getParentFile.listFiles(FileFilter.globFilter("ivy-*.xml.original")).lastOption
 
-    val candidates = Seq(
-      ivyXml \ "scm" \ "url",
-      ivyXml \ "url",
-      ivyXml \ "licenses" \ "license" \ "url").collect {
-      case nodes if nodes.nonEmpty => nodes.text
-    }
+    val ivyXml = ivyXmlFile.map(scala.xml.XML.loadFile)
 
-    ScmUrl(candidates)
+    // find *.pom of latest version
+    val mavenXmlFile =
+      jarPath.getParentFile.listFiles(FileFilter.globFilter("*.pom")).lastOption
+
+    val mavenXml = mavenXmlFile.map(scala.xml.XML.loadFile)
+
+    def candidates(elem: scala.xml.Elem) =
+      Seq(
+        elem \ "scm" \ "url",
+        elem \ "url",
+        elem \ "licenses" \ "license" \ "url"
+      ).collect {
+        case nodes if nodes.nonEmpty => nodes.text
+      }
+
+    ScmUrl(Seq(mavenXml, ivyXml).flatten.map(candidates).reduceLeft(_ ++ _))
   }
 }

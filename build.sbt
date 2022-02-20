@@ -8,7 +8,7 @@ sbtPlugin := true
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 
-crossSbtVersions := Seq("0.13.16", "1.0.2")
+crossSbtVersions := Seq("1.6.2")
 
 licenses += (("Apache2.0", url("https://raw.githubusercontent.com/ocadaruma/sbt-thank-you-stars/master/LICENSE")))
 
