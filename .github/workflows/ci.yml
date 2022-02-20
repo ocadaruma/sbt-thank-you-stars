@@ -6,6 +6,8 @@ on:
   pull_request:
     branches:
     - master
+env:
+  THANK_YOU_STARS_GITHUB_TOKEN: ${{ secrets.THANK_YOU_STARS_GITHUB_TOKEN }}
 jobs:
   test:
     runs-on: ubuntu-latest
